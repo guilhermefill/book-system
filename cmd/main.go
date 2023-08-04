@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/guilhermefill/book-system/pkg/routes"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	r := mux.NewRouter()
+	routes.RegisterBookStoreRoutes(r)
+	http.Handle("/", r)
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
